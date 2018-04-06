@@ -20,17 +20,27 @@
 
 		<div class="selector">
 			<input id="calendar" type="date" min="2015-01-01" max="2018-01-01">
+			<button type="button">Submit</button>
 		</div>
 
 		<div class="content">
 			<p id="date"></p>
 		</div>
 
+		<div class="map">
+			<iframe
+			    width="600"
+			    height="450"
+			    frameborder="0" style="border:0"
+			    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCSFn1R3yBkcTblrNwxCnZNAoMWPJq_xSU&q=Space+Needle,Seattle+WA" allowfullscreen>
+			</iframe>
+		</div>
+
 		<script type="text/javascript">
 			dateObj =  new Date();
 			let y = dateObj.getFullYear();
 			let m = dateObj.getMonth() + 1;
-			let d = dateObj.getDate();
+			let d = dateObj.getDate() + 7;
 
 			if (m > 0 && m < 10) {
 				m = "0" + m
@@ -41,7 +51,7 @@
 
 			a = y + '-' + m + '-' + d
 			console.log(a)
-			document.getElementById("date").innerHTML = dateObj.toLocaleDateString();
+			document.getElementById("date").innerHTML = "Todays date: " + dateObj.toLocaleDateString();
 			document.getElementById("calendar").max = a
 		</script>
 

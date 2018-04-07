@@ -13,27 +13,34 @@
 
 	<body>
 
-		<header>
-			<h1>Google Maps: Baseball Games and Weather APIs</h1>
-			<h2>By: Austin Uetz & Brad Kovacovich</h2>
-		</header>
+		<div class="container">
+			<header>
+				<h1>Google Maps: Baseball Games and Weather APIs</h1>
+				<h2>By: Austin Uetz & Brad Kovacovich</h2>
+			</header>
 
-		<div class="selector">
-			<input id="calendar" type="date" min="2015-01-01" max="2018-01-01">
-			<button type="button">Submit</button>
-		</div>
+			<div class="selector">
+				<input id="calendar" type="date" min="2015-01-01" max="2018-01-01">
+				<button type="button" onclick="clickedon()" id="submit">Submit</button>
+			</div>
 
-		<div class="content">
-			<p id="date"></p>
-		</div>
+			<div class="content">
+				<p id="date"></p>
+			</div>
 
-		<div class="map">
-			<iframe
-			    width="600"
-			    height="450"
-			    frameborder="0" style="border:0"
-			    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCSFn1R3yBkcTblrNwxCnZNAoMWPJq_xSU&q=Space+Needle,Seattle+WA" allowfullscreen>
-			</iframe>
+			<div>
+				<h4 id="selectedDate">Selected Date:</h4>
+			</div>
+
+			<div class="map">
+				<iframe
+				    width="600"
+				    height="450"
+				    frameborder="0" style="border:0"
+				    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCSFn1R3yBkcTblrNwxCnZNAoMWPJq_xSU&q=United States" allowfullscreen>
+				</iframe>
+			</div>
+
 		</div>
 
 		<script type="text/javascript">

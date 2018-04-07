@@ -29,13 +29,18 @@ class Subject {
 }
 
 class Weather {
-	constructor(city, temp, chancePrecip, windSpeed, humidity, skyStatus) {
+	constructor(date, city, temp, chancePrecip, windSpeed, humidity, skyStatus) {
+		this._date = date
 		this._city = city
 		this._temp = temp
 		this._chancePrecip = chancePrecip
 		this._windSpeed = windSpeed
 		this._humidity = humidity
 		this._skyStatus = skyStatus
+	}
+
+	get date() {
+		return this._date
 	}
 
 	get city() { 

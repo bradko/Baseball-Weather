@@ -71,14 +71,15 @@ class Weather {
 
 
 class Game {
-	constructor(homeTeam, awayTeam, date, time, homeScore, awayScore, final) {
+	constructor(homeTeam, awayTeam, date, time, staduim) {
 		this._homeTeam = homeTeam
 		this._awayTeam = awayTeam
 		this._date = date
 		this._time = time
-		this._homeScore = homeScore
-		this._awayScore = awayScore
-		this._final = false
+		this._stadium = staduim
+		//this._homeScore = homeScore
+		//this._awayScore = awayScore
+		//this._final = false
 	}
 
 	get homeTeam() { 
@@ -97,21 +98,25 @@ class Game {
 		return this._time
 	}
 
-	get homeScore() {
-		return this._homeScore
+	get staduim() {
+		return this._stadium
 	}
 
-	get awayScore() {
-		return this._awayScore
-	}
+	//get homeScore() {
+	//	return this._homeScore
+	//}
+
+	//get awayScore() {
+	//	return this._awayScore
+	//}
 	
-	get final() {
-		return this._final
-	}
+	//get final() {
+	//	return this._final
+	//}
 
 }
 
-class gamesList extends Subject{
+class GamesList extends Subject{
 
 	constructor() {
 		super()

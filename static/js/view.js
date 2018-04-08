@@ -8,8 +8,11 @@ class GamesView {
 		})
 	}
 
-	redrawMap(gamesList, msg){
-		//TODO
+	redrawMap(msg, gamesList){
+		let map = document.querySelector("#states")
+		for (let game of gamesList) {
+			//TODO
+		}
 	}
 
 }

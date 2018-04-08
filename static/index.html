@@ -9,6 +9,7 @@
 
 	<head>
 		<title>Sports and Weather APIs</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 
 	<body>
@@ -32,15 +33,45 @@
 				<h4 id="selectedDate">Selected Date:</h4>
 			</div>
 
-			<div class="map">
-				<iframe
-					id="states"
-				    width="600"
-				    height="450"
-				    frameborder="0" style="border:0"
-				    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCSFn1R3yBkcTblrNwxCnZNAoMWPJq_xSU&q=United States" allowfullscreen>
-				</iframe>
-			</div>
+			<div id="map"></div>
+
+			<script async defer 
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDclVT-zZZCDmEF2Q66ab-LWv3bmya7XTQ&callback=initMap">
+			</script>
+
+			<script>
+				function initMap() {
+			        var usLocation = {lat: 39.8283, lng: -95.5795};
+			        var map = new google.maps.Map(document.getElementById('map'), {
+			            zoom: 4,
+			            center: usLocation
+			        });
+			        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			        var infowindow = new google.maps.InfoWindow();
+					var marker, i;
+			        for (let i = 0; i < locations.length; i++) {
+			        	let marker = new google.maps.Marker({
+			        		position: locations[i],
+			        		label: labels[i % labels.length],
+			        		map: map
+			        	});
+
+			        	google.maps.event.addListener(marker, 'click', (function(marker, i) {
+					        return function() {
+					            infowindow.setContent("This is a marker info window. Add data here.");
+					            infowindow.open(map, marker);
+					        }
+					    })(marker, i));
+			        }
+			    }
+			    var locations = [
+			        {lat: 40.8296, lng: -73.9262},
+			        {lat: 42.3467, lng: -71.0972},
+			        {lat: 44.9818, lng: -93.2775}
+			      ]
+			</script>
+			<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    		</script>
 
 		</div>
 
@@ -60,6 +91,8 @@
 			document.getElementById("date").innerHTML = "Todays date: " + dateObj.toLocaleDateString();
 			document.getElementById("calendar").max = a
 		</script>
+
+		
 
 		<script src=js/model.js type=text/javascript></script>
 		<script src=js/view.js type=text/javascript></script>

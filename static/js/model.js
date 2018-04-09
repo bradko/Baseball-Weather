@@ -69,7 +69,6 @@ class Weather {
 
 }
 
-
 class Game {
 	constructor(homeTeam, awayTeam, date, time, staduim, homeScore, awayScore, final, lat, lng) {
 		this._homeTeam = homeTeam
@@ -138,6 +137,10 @@ class GamesList extends Subject{
 
 	addGame(game) {
 		this._games.push(game)
+	}
+
+	clearGames() {
+		this._games = []
 	}
 
 	publishGames(){

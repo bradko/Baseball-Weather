@@ -8,10 +8,15 @@ class GamesView {
 		})
 	}
 
-	redrawMap(msg, gamesList){
-		for (let game of gamesList) {
-			//TODO
+	redrawMap(gamesList, msg) {
+		let lats = []
+		let lngs = []
+		for (let game of gamesList._games){
+			lats.push(game.lat)
+			lngs.push(game.lng)
 		}
+		console.log(lats)
+		console.log(lngs)
 	}
 
 }

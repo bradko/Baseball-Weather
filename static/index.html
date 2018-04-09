@@ -42,33 +42,30 @@
 			<script>
 				function initMap() {
 			        var usLocation = {lat: 39.8283, lng: -95.5795};
-			        var map = new google.maps.Map(document.getElementById('map'), {
+			        window.map = new google.maps.Map(document.getElementById('map'), {
 			            zoom: 4,
 			            center: usLocation
 			        });
 			        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			        var infowindow = new google.maps.InfoWindow();
 					var marker, i;
-			        for (let i = 0; i < locations.length; i++) {
-			        	let marker = new google.maps.Marker({
-			        		position: locations[i],
-			        		label: labels[i % labels.length],
-			        		map: map
-			        	});
+			      //   for (let i = 0; i < locations.length; i++) {
+			      //   	let marker = new google.maps.Marker({
+			      //   		position: locations[i],
+			      //   		label: labels[i % labels.length],
+			      //   		map: map
+			      //   	});
 
-			        	google.maps.event.addListener(marker, 'click', (function(marker, i) {
-					        return function() {
-					            infowindow.setContent("This is a marker info window. Add data here.");
-					            infowindow.open(map, marker);
-					        }
-					    })(marker, i));
-			        }
+			      //   	google.maps.event.addListener(marker, 'click', (function(marker, i) {
+					    //     return function() {
+					    //         infowindow.setContent("This is a marker info window. Add data here.");
+					    //         infowindow.open(map, marker);
+					    //     }
+					    // })(marker, i));
+			      //   }
 			    }
-			    var locations = [
-			        {lat: 40.8296, lng: -73.9262},
-			        {lat: 42.3467, lng: -71.0972},
-			        {lat: 44.9818, lng: -93.2775}
-			      ]
+			    window.locations = []
+			    window.markers = []
 			</script>
 			<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     		</script>

@@ -133,12 +133,15 @@ class GamesList extends Subject{
 	}
 
 	getGames() {
-		this.publish("Current Games", this)
 		return this._games
 	}
 
 	addGame(game) {
 		this._games.push(game)
+	}
+
+	publishGames(){
+		super.publish("Current Games", this)
 	}
 
 }

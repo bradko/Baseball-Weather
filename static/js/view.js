@@ -2,9 +2,6 @@
 
 class GamesView {
 	constructor(model) {
-		// this.model = model
-		// model.subscribe(this.redrawTable.bind(this))
-
 		let self = this;
 		model.subscribe( function(a,b) {
 			self.redrawMap(a,b)
@@ -12,8 +9,9 @@ class GamesView {
 	}
 
 	redrawMap(gamesList, msg){
-		let todaysDate =  new Date();
-		let selectedDate = new Date(document.querySelector("#calendar").value)
+		let pacific = ["CA", "AZ", "WA"]
+		let mountain = ["CO"]
+		let central = ["MN", "WI", "IL", "MO", "TX", "KS"]
 
         let labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         let infowindow = new google.maps.InfoWindow();
@@ -28,11 +26,6 @@ class GamesView {
 
 		clearOverlays()
 		locations = []
-		// let locations = [
-	 //        {lat: 40.8296, lng: -73.9262},
-	 //        {lat: 42.3467, lng: -71.0972},
-	 //        {lat: 44.9818, lng: -93.2775}
-	 //    ]
 
 	    let gameArray = gamesList.getGames()
 	    
@@ -41,7 +34,6 @@ class GamesView {
 			    lat: game.lat,
 			    lng: game.lng
 			};
-			console.log(dict)
 			locations.push(dict)
 	    }
 
@@ -55,10 +47,14 @@ class GamesView {
         	google.maps.event.addListener(marker, 'click', (function(marker, i) {
 		        return function() {
 		    		let weatherCity = gameArray[i].city.replace(' ','_')
-		        	
-		        	if (selectedDate.getDate() + 1 < todaysDate.getDate()) {
+		    		let weatherDate = gameArray[i].date.replace(/-/g, '')
+		    		console.log(gameArray[i].time)
+		    		let easternTime = gameArray[i].time
+		        	let localTime = timeZone(easternTime, weatherDate, gameArray[i].state)
+		        	console.log(localTime)
+
+		        	if (gameArray[i].final) {
 		        		console.log("history")
-		        		let weatherDate = gameArray[i].date.replace(/-/g, '')
 			        	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/history_" + weatherDate + "/q/" + gameArray[i].state + "/" + weatherCity + ".json")
 						.then(function(response) {
 								return response.json()
@@ -86,6 +82,36 @@ class GamesView {
 		    markers.push(marker)
         }
 	 
-    	//let key = 9cf4b72704b2efcc
+		function timeZone(easternTime, date, state) {
+			let year = date.substring(0,4)
+			let month = date.substring(4,6)
+			let day = date.substring(6,8)
+			let hours = easternTime.split(':')[0]
+			let minutes = easternTime.split(':')[1].substring(0,2)
+			easternTime = new Date(year, month, day, hours, minutes, 0, 0)
+			let localTime = easternTime
+			for (let st of pacific) {
+				if (state == st) {
+					//console.log("pacific")
+					let localTime = easternTime.setHours(easternTime.getHours() - 3)
+				}
+			}
+			for (let st of mountain) {
+				if (state == st) {
+					//console.log("mountain")
+					let localTime = easternTime.setHours(easternTime.getHours() - 2)
+				}
+			}
+			for (let st of central) {
+				if (state == st) {
+					//console.log("central")
+					let localTime = easternTime.setHours(easternTime.getHours() - 1)
+				}
+			}
+			return localTime.getHours()
+		}
+
 	}
+
+
 }

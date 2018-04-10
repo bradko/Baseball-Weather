@@ -51,7 +51,10 @@ function clickedon() {
 				.then(function(data){
 					let lat = data.results[0].geometry.location.lat
 					let lng = data.results[0].geometry.location.lng
-					let game = new Game(homeTeam, awayTeam, g.game.date, g.game.time, g.game.location, g.homeScore, g.awayScore, g.game.isCompleted, lat, lng)
+					let address = data.results[0].formatted_address
+					let city = address.split(',')[1].replace(' ', '')
+					let state = address.split(',')[2].substring(1,3)
+					let game = new Game(homeTeam, awayTeam, g.game.date, g.game.time, g.game.location, g.homeScore, g.awayScore, g.game.isCompleted, lat, lng, city, state)
 					list.addGame(game)
 					counter += 1
 				})
@@ -93,7 +96,10 @@ function clickedon() {
 				.then(function(data){
 					let lat = data.results[0].geometry.location.lat
 					let lng = data.results[0].geometry.location.lng
-					let game = new Game(homeTeam, awayTeam, g.date, g.time, g.location, 0, 0, false, lat, lng)
+					let address = data.results[0].formatted_address
+					let city = address.split(',')[1].replace(' ', '')
+					let state = address.split(',')[2].substring(1,3)
+					let game = new Game(homeTeam, awayTeam, g.date, g.time, g.location, 0, 0, false, lat, lng, city, state)
 					list.addGame(game)
 					counter += 1
 				})

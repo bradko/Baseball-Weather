@@ -54,7 +54,7 @@ function clickedon() {
 					let address = data.results[0].formatted_address
 					let city = address.split(',')[1].replace(' ', '')
 					let state = address.split(',')[2].substring(1,3)
-					let game = new Game(homeTeam, awayTeam, g.game.date, g.game.time, g.game.location, g.homeScore, g.awayScore, g.game.isCompleted, lat, lng, city, state)
+					let game = new Game(homeTeam, awayTeam, g.game.date, g.game.time, g.game.location, g.homeScore, g.awayScore, g.isCompleted, lat, lng, city, state)
 					list.addGame(game)
 					counter += 1
 				})

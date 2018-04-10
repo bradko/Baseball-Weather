@@ -53,30 +53,39 @@ class GamesView {
 		        	let localTime = timeZone(easternTime, weatherDate, gameArray[i].state)
 		        	console.log(localTime)
 
-		        	if (gameArray[i].final) {
-		        		console.log("history")
-			        	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/history_" + weatherDate + "/q/" + gameArray[i].state + "/" + weatherCity + ".json")
-						.then(function(response) {
-								return response.json()
-						})
-						.then(function(data){
-								console.log(data)
-								infowindow.setContent(gameArray[i].homeTeam + " vs. " + gameArray[i].awayTeam);
-			            		infowindow.open(map, marker);
-						})
-		        	}
-		        	else {
-		        		console.log("forecast")
-			        	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/hourly10day/q/" + gameArray[i].state + "/" + weatherCity + ".json")
-						.then(function(response) {
-								return response.json()
-						})
-						.then(function(data){
-								console.log(data)
-								infowindow.setContent(gameArray[i].homeTeam + " vs. " + gameArray[i].awayTeam);
-			            		infowindow.open(map, marker);
-						})
-		        	}
+		        	let contentString = '<div>' +
+		        	'<h2><a href="https://en.wikipedia.org/wiki/'+ gameArray[i].stadium.replace(' ', '_') + 
+		        	'" target="_blank">' + gameArray[i].stadium + '</a></h2>' + 
+		        	'<p id="gameScoreOutput">' + gameArray[i].homeTeam + ' <b>[' + gameArray[i].homeScore + ']</b> - ' + 
+		        			gameArray[i].awayTeam + ' <b>[' + gameArray[i].awayScore + ']</b></p></div>'
+
+		        	infowindow.setContent(contentString);
+			        infowindow.open(map, marker);
+
+		    //     	if (gameArray[i].final) {
+		    //     		console.log("history")
+			   //      	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/history_" + weatherDate + "/q/" + gameArray[i].state + "/" + weatherCity + ".json")
+						// .then(function(response) {
+						// 		return response.json()
+						// })
+						// .then(function(data){
+						// 		console.log(data)
+						// 		infowindow.setContent(contentString);
+			   //          		infowindow.open(map, marker);
+						// })
+		    //     	}
+		    //     	else {
+		    //     		console.log("forecast")
+			   //      	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/hourly10day/q/" + gameArray[i].state + "/" + weatherCity + ".json")
+						// .then(function(response) {
+						// 		return response.json()
+						// })
+						// .then(function(data){
+						// 		console.log(data)
+						// 		infowindow.setContent(contentString);
+			   //          		infowindow.open(map, marker);
+						// })
+		    //     	}
 		        }
 		    })(marker, i));
 		    markers.push(marker)

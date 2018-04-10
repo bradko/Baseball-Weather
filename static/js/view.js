@@ -12,6 +12,9 @@ class GamesView {
 	}
 
 	redrawMap(gamesList, msg){
+		let todaysDate =  new Date();
+		let selectedDate = new Date(document.querySelector("#calendar").value)
+
         let labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         let infowindow = new google.maps.InfoWindow();
 		let marker, i;
@@ -51,21 +54,38 @@ class GamesView {
         	
         	google.maps.event.addListener(marker, 'click', (function(marker, i) {
 		        return function() {
-		            infowindow.setContent("This is a marker info window. Add data here.");
-		            infowindow.open(map, marker);
+		    		let weatherCity = gameArray[i].city.replace(' ','_')
+		        	
+		        	if (selectedDate.getDate() + 1 < todaysDate.getDate()) {
+		        		console.log("history")
+		        		let weatherDate = gameArray[i].date.replace(/-/g, '')
+			        	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/history_" + weatherDate + "/q/" + gameArray[i].state + "/" + weatherCity + ".json")
+						.then(function(response) {
+								return response.json()
+						})
+						.then(function(data){
+								console.log(data)
+								infowindow.setContent(gameArray[i].homeTeam + " vs. " + gameArray[i].awayTeam);
+			            		infowindow.open(map, marker);
+						})
+		        	}
+		        	else {
+		        		console.log("forecast")
+			        	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/hourly10day/q/" + gameArray[i].state + "/" + weatherCity + ".json")
+						.then(function(response) {
+								return response.json()
+						})
+						.then(function(data){
+								console.log(data)
+								infowindow.setContent(gameArray[i].homeTeam + " vs. " + gameArray[i].awayTeam);
+			            		infowindow.open(map, marker);
+						})
+		        	}
 		        }
 		    })(marker, i));
 		    markers.push(marker)
         }
 	 
     	//let key = 9cf4b72704b2efcc
-		// fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/hourly10day/q/IA/Decorah.json")
-		// .then(function(response) {
-		// 		return response.json()
-		// })
-		// .then(function(data){
-		// 		console.log(data)
-		// })
-
 	}
 }

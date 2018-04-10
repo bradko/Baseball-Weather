@@ -48,10 +48,24 @@ class GamesView {
         		label: labels[i % labels.length],
         		map: map
         	});
-        	markers.push(marker)
-
+        	
+        	google.maps.event.addListener(marker, 'click', (function(marker, i) {
+		        return function() {
+		            infowindow.setContent("This is a marker info window. Add data here.");
+		            infowindow.open(map, marker);
+		        }
+		    })(marker, i));
+		    markers.push(marker)
         }
-	    
-	}
+	 
+    	//let key = 9cf4b72704b2efcc
+		// fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/hourly10day/q/IA/Decorah.json")
+		// .then(function(response) {
+		// 		return response.json()
+		// })
+		// .then(function(data){
+		// 		console.log(data)
+		// })
 
+	}
 }

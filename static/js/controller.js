@@ -12,7 +12,7 @@ function clickedon() {
 	let year = date.value.substring(0,4)
 	let month = date.value.substring(5,7)
 	let day = date.value.substring(8,10)
-	let theDate = year+month+day
+	let theDate = "2017"+month+day
 
 	dateObj =  new Date();
 	let y = dateObj.getFullYear();
@@ -30,7 +30,7 @@ function clickedon() {
 		$.ajax
 		({
 		  type: "GET",
-		  url: "https://api.mysportsfeeds.com/v1.2/pull/mlb/2018-regular/scoreboard.json?fordate=" + theDate,
+		  url: "https://api.mysportsfeeds.com/v1.2/pull/mlb/" + "2017" + "-regular/scoreboard.json?fordate=" + theDate,
 		  dataType: 'json',
 		  async: false,
 		  headers: {
@@ -72,7 +72,7 @@ function clickedon() {
 		$.ajax
 		({
 		  type: "GET",
-		  url: "https://api.mysportsfeeds.com/v1.2/pull/mlb/2018-regular/daily_game_schedule.json?fordate=" + theDate,
+		  url: "https://api.mysportsfeeds.com/v1.2/pull/mlb/" + "2017" + "-regular/daily_game_schedule.json?fordate=" + theDate,
 		  dataType: 'json',
 		  async: false,
 		  headers: {
@@ -110,15 +110,4 @@ function clickedon() {
 		  }  
 		})
 	}
-
-
-	//let key = 9cf4b72704b2efcc
-	//fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/hourly10day/q/IA/Decorah.json")
-	//.then(function(response) {
-	//	return response.json()
-	//})
-	//.then(function(data){
-	//	console.log(data)
-	//})
-
 }

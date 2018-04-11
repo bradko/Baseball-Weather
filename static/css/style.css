@@ -2,6 +2,6 @@
 	height: 70%;
 }
 
-p#gameScoreOutput{
+div#infoWindow > p {
 	font-size: 18px;
 }

@@ -38,7 +38,6 @@ function clickedon() {
 		    "Authorization": "Basic " + btoa("uetzau" + ":" + "Baseball1")
 		  },
 		  success: function(result) {
-		  	console.log(result)
 		    let games = result.scoreboard.gameScore
 			let len = games.length
 		    let counter = 0
@@ -57,6 +56,7 @@ function clickedon() {
 					let state = address.split(',')[2].substring(1,3)
 					if (state == "ON") {
 						state = "Canada"
+						city = "Old_Toronto"
 					}
 					let game = new Game(homeTeam, awayTeam, g.game.date, g.game.time, g.game.location, g.homeScore, g.awayScore, g.isCompleted, lat, lng, city, state)
 					list.addGame(game)
@@ -86,7 +86,6 @@ function clickedon() {
 		    "Authorization": "Basic " + btoa("uetzau" + ":" + "Baseball1")
 		  },
 		  success: function(result) {
-		  	console.log(result)
 		    let games = result.dailygameschedule.gameentry
 		    let len = games.length
 		    let counter = 0

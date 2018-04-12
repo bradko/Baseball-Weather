@@ -16,7 +16,7 @@ class GamesView {
         let labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         let infowindow = new google.maps.InfoWindow();
 		let marker, i;
-		
+
 		function clearOverlays() {
 		    for (var i = 0; i < markers.length; i++ ) {
 		        markers[i].setMap(null);
@@ -52,12 +52,11 @@ class GamesView {
 		        	let localTime = timeZone(easternTime, weatherDate, gameArray[i].state)
 		        	let localTimeHours = localTime.getHours()
 
-		        	let contentString = '<div id="infoWindow">' +
+		        	let contentString = '<div id="infoWindowTitle">' +
 		        	'<h2><a href="https://en.wikipedia.org/wiki/'+ gameArray[i].stadium.replace(' ', '_') + 
 		        	'" target="_blank">' + gameArray[i].stadium + '</a></h2>' 
-		        	
 
-		        	if (gameArray[i].final) {
+		        	if (gameArray[i].final === "true") {
 		        		console.log("history")
 			        	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/history_" + weatherDate + "/q/" + gameArray[i].state + "/" + weatherCity + ".json")
 						.then(function(response) {
@@ -72,13 +71,16 @@ class GamesView {
 							let conditions = obs.conds
 							let humidity = obs.hum
 							let windSpeed = obs.wspdi
+							let windDire = obs.wdire
 
-		            		contentString += '<h3>' + gameArray[i].city + ', ' + gameArray[i].state + "    " + 
-		            		 localTime.toLocaleString() + '</h3>' +
+		            		contentString += '<h3>' + gameArray[i].city + ', ' + gameArray[i].state + 
+		            		'<span id="time">' + localTime.toLocaleString() + '</span></h3>' +
 		            		'<p id="gameScoreOutput">' + gameArray[i].homeTeam + ' <b>[' + gameArray[i].homeScore + 
 		            		']</b> - ' + gameArray[i].awayTeam + ' <b>[' + gameArray[i].awayScore + ']</b></p></div>' + 
-		            		'<p> Temp: ' + temp + "&#8457</p><p>Wind Speed: " + windSpeed + " mph</p><p>Conditions: " + conditions
-		            		+ "</p><p>Humidity: " + humidity + "%</p></div>"
+		            		'<div class="column"><p> Temp: ' + temp + '&#8457</p>' + 
+		            		'<p>Wind: ' + windSpeed + ' mph ' + windDire + '</p></div>' + 
+		            		'<div class="column"><p>Conditions: ' + conditions + '</p>' + 
+		            		'<p>Humidity: ' + humidity + '%</div></p></div>'
 
 		            		infowindow.setContent(contentString);
 		            		infowindow.open(map, marker);
@@ -92,6 +94,25 @@ class GamesView {
 						})
 						.then(function(data){
 								console.log(data)
+								let todaysdate = new Date()
+								let difference = Math.round((localTime.getTime() - todaysdate.getTime()) / 3600000)
+								console.log(difference) 
+								//data.hourly_forecast 
+								let obs = data.hourly_forecast[difference]
+								let temp = obs.temp.english
+								let conditions = obs.condition
+								let humidity = obs.humidity
+								let windSpeed = obs.wspd.english
+								let windDire = obs.wdir.dir
+
+								contentString += '<h3>' + gameArray[i].city + ', ' + gameArray[i].state + 
+			            		'<span id="time">' + localTime.toLocaleString() + '</span></h3>' +
+			            		'<p id="gameScoreOutput">' + gameArray[i].homeTeam + ' vs. ' + gameArray[i].awayTeam + '</p></div>' + 
+			            		'<div class="column"><p> Temp: ' + temp + '&#8457</p>' + 
+			            		'<p>Wind: ' + windSpeed + ' mph ' + windDire + '</p></div>' + 
+			            		'<div class="column"><p>Conditions: ' + conditions + '</p>' + 
+			            		'<p>Humidity: ' + humidity + '%</div></p></div>'
+
 								infowindow.setContent(contentString);
 			            		infowindow.open(map, marker);
 						})

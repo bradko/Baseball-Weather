@@ -1,7 +1,29 @@
+/*.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}*/
+
 #map {
 	height: 70%;
 }
 
-div#infoWindow > p {
+div#infoWindowTitle > p {
 	font-size: 18px;
+}
+
+div#infoWindowTitle > h3 > span {
+	font-weight: normal;
+	font-size: .8em;
+	padding-left: .5em;
+}
+
+div#infoWindowTitle > h2, h3 {
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+
+div.column {
+    float: left;
+    width: 50%;
 }

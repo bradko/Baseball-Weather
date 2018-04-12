@@ -1,5 +1,13 @@
 "use strict"
 
+function clearOverlays() {
+    for (var i = 0; i < markers.length; i++ ) {
+        markers[i].setMap(null);
+    }
+    markers.length = 0;
+}
+
+
 class GamesView {
 	constructor(model) {
 		let self = this;
@@ -16,13 +24,6 @@ class GamesView {
         let labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         let infowindow = new google.maps.InfoWindow();
 		let marker, i;
-
-		function clearOverlays() {
-		    for (var i = 0; i < markers.length; i++ ) {
-		        markers[i].setMap(null);
-		    }
-		    markers.length = 0;
-		}
 
 		clearOverlays()
 		locations = []
@@ -79,14 +80,14 @@ class GamesView {
 		            		'<p id="gameScoreOutput">' + gameArray[i].homeTeam + ' <b>[' + gameArray[i].homeScore + 
 		            		']</b> - ' + gameArray[i].awayTeam + ' <b>[' + gameArray[i].awayScore + ']</b></p></div>' + 
 		            		'<div class="column">'  + 
-		            		'<div class="row"><img src="../images/temp.png">' + 
+		            		'<div class="row"><img src="../static/images/temp.png">' + 
 		            		'<span>Temp: ' + temp + '&#8457</span></div>' + 
-		            		'<div class="row"><img src="../images/wind.png">' +
+		            		'<div class="row"><img src="../static/images/wind.png">' +
 		            		'<span>Wind: ' + windSpeed + ' mph ' + windDire + '</span></div></div>' + 
 		            		'<div class="column">' +
-		            		'<div class="row"><img src="../images/conditions.png">' + 
+		            		'<div class="row"><img src="../static/images/conditions.png">' + 
 		            		'<span>' + conditions + '</span></div>' + 
-		            		'<div class="row"><img src="../images/humidity.png">' +
+		            		'<div class="row"><img src="../static/images/humidity.png">' +
 		            		'<span>Humidity: ' + humidity + '%</span></div></div>'
 
 		            		infowindow.setContent(contentString);
@@ -118,14 +119,14 @@ class GamesView {
 		            		'<span id="time">' + localTime.toLocaleString() + '</span></h3>' +
 		            		'<p id="gameScoreOutput">' + gameArray[i].homeTeam + ' vs. ' + gameArray[i].awayTeam + '</p></div>' + 
 		            		'<div class="column">'  + 
-		            		'<div class="row"><img src="../images/temp.png">' + 
+		            		'<div class="row"><img src="../static/images/temp.png">' + 
 		            		'<span>Temp: ' + temp + '&#8457</span></div>' + 
-		            		'<div class="row"><img src="../images/wind.png">' +
+		            		'<div class="row"><img src="../static/images/wind.png">' +
 		            		'<span>Wind: ' + windSpeed + ' mph ' + windDire + '</span></div></div>' + 
 		            		'<div class="column">' +
-		            		'<div class="row"><img src="../images/conditions.png">' + 
+		            		'<div class="row"><img src="../static/images/conditions.png">' + 
 		            		'<span>' + conditions + '</span></div>' + 
-		            		'<div class="row"><img src="../images/humidity.png">' +
+		            		'<div class="row"><img src="../static/images/humidity.png">' +
 		            		'<span>Humidity: ' + humidity + '%</span></div></div>'
 
 							infowindow.setContent(contentString);

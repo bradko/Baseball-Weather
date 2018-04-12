@@ -39,7 +39,14 @@ function clickedon() {
 		  },
 		  success: function(result) {
 		    let games = result.scoreboard.gameScore
-			let len = games.length
+			try {
+				var len = games.length
+			}
+			catch(error) {
+				var len = 0
+				alert("No games for selected date")
+				clearOverlays()
+			}
 		    let counter = 0
 		    for (let g of games){
 		    	let homeTeam = g.game.homeTeam.City + " " + g.game.homeTeam.Name

@@ -122,6 +122,10 @@ class Game {
 	get state() {
 		return this._state
 	}
+
+	set city(val) {
+		this._city = val
+	}
 	
 }
 

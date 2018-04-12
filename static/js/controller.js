@@ -8,11 +8,12 @@ function clickedon() {
 
 	let date = document.querySelector("#calendar")
 	let sel = document.querySelector("#selectedDate")
-	sel.innerHTML = "Date Selected: " + date.value
 	let year = date.value.substring(0,4)
 	let month = date.value.substring(5,7)
 	let day = date.value.substring(8,10)
-	let theDate = year+month+day
+	let theDate = month + '/' + day + '/' + year
+	sel.innerHTML = "Date Selected: " + theDate
+	theDate = year+month+day
 
 	dateObj =  new Date();
 	let y = dateObj.getFullYear();
@@ -38,7 +39,7 @@ function clickedon() {
 		  },
 		  success: function(result) {
 		    let games = result.scoreboard.gameScore
-		    let len = games.length
+			let len = games.length
 		    let counter = 0
 		    for (let g of games){
 		    	let homeTeam = g.game.homeTeam.City + " " + g.game.homeTeam.Name
@@ -68,7 +69,7 @@ function clickedon() {
 			    	list.publishGames()
 			    }
 			    else {
-			    	alert("error getting games, please try again")
+			    	alert("Error getting games, please try again")
 			    }
 			}, 1000)	
 		  }  

@@ -77,10 +77,16 @@ class GamesView {
 		            		'<span id="time">' + localTime.toLocaleString() + '</span></h3>' +
 		            		'<p id="gameScoreOutput">' + gameArray[i].homeTeam + ' <b>[' + gameArray[i].homeScore + 
 		            		']</b> - ' + gameArray[i].awayTeam + ' <b>[' + gameArray[i].awayScore + ']</b></p></div>' + 
-		            		'<div class="column"><p> Temp: ' + temp + '&#8457</p>' + 
-		            		'<p>Wind: ' + windSpeed + ' mph ' + windDire + '</p></div>' + 
-		            		'<div class="column"><p>Conditions: ' + conditions + '</p>' + 
-		            		'<p>Humidity: ' + humidity + '%</div></p></div>'
+		            		'<div class="column">'  + 
+		            		'<div class="row"><img src="../images/temp.png">' + 
+		            		'<span>Temp: ' + temp + '&#8457</span></div>' + 
+		            		'<div class="row"><img src="../images/wind.png">' +
+		            		'<span>Wind: ' + windSpeed + ' mph ' + windDire + '</span></div></div>' + 
+		            		'<div class="column">' +
+		            		'<div class="row"><img src="../images/conditions.png">' + 
+		            		'<span>' + conditions + '</span></div>' + 
+		            		'<div class="row"><img src="../images/humidity.png">' +
+		            		'<span>Humidity: ' + humidity + '%</span></div></div>'
 
 		            		infowindow.setContent(contentString);
 		            		infowindow.open(map, marker);
@@ -96,6 +102,9 @@ class GamesView {
 								console.log(data)
 								let todaysdate = new Date()
 								let difference = Math.round((localTime.getTime() - todaysdate.getTime()) / 3600000)
+								if (difference < 0) {
+									difference = 0;
+								}
 								console.log(difference) 
 								//data.hourly_forecast 
 								let obs = data.hourly_forecast[difference]
@@ -108,10 +117,16 @@ class GamesView {
 								contentString += '<h3>' + gameArray[i].city + ', ' + gameArray[i].state + 
 			            		'<span id="time">' + localTime.toLocaleString() + '</span></h3>' +
 			            		'<p id="gameScoreOutput">' + gameArray[i].homeTeam + ' vs. ' + gameArray[i].awayTeam + '</p></div>' + 
-			            		'<div class="column"><p> Temp: ' + temp + '&#8457</p>' + 
-			            		'<p>Wind: ' + windSpeed + ' mph ' + windDire + '</p></div>' + 
-			            		'<div class="column"><p>Conditions: ' + conditions + '</p>' + 
-			            		'<p>Humidity: ' + humidity + '%</div></p></div>'
+			            		'<div class="column">'  + 
+			            		'<div class="row"><img src="../images/temp.png">' + 
+			            		'<span>Temp: ' + temp + '&#8457</span></div>' + 
+			            		'<div class="row"><img src="../images/wind.png">' +
+			            		'<span>Wind: ' + windSpeed + ' mph ' + windDire + '</span></div></div>' + 
+			            		'<div class="column">' +
+			            		'<div class="row"><img src="../images/conditions.png">' + 
+			            		'<span>' + conditions + '</span></div>' + 
+			            		'<div class="row"><img src="../images/humidity.png">' +
+			            		'<span>Humidity: ' + humidity + '%</span></div></div>'
 
 								infowindow.setContent(contentString);
 			            		infowindow.open(map, marker);

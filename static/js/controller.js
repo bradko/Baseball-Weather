@@ -12,7 +12,7 @@ function clickedon() {
 	let year = date.value.substring(0,4)
 	let month = date.value.substring(5,7)
 	let day = date.value.substring(8,10)
-	let theDate = "2017"+month+day
+	let theDate = year+month+day
 
 	dateObj =  new Date();
 	let y = dateObj.getFullYear();
@@ -30,7 +30,7 @@ function clickedon() {
 		$.ajax
 		({
 		  type: "GET",
-		  url: "https://api.mysportsfeeds.com/v1.2/pull/mlb/" + "2017" + "-regular/scoreboard.json?fordate=" + theDate,
+		  url: "https://api.mysportsfeeds.com/v1.2/pull/mlb/" + year + "-regular/scoreboard.json?fordate=" + theDate,
 		  dataType: 'json',
 		  async: false,
 		  headers: {
@@ -78,7 +78,7 @@ function clickedon() {
 		$.ajax
 		({
 		  type: "GET",
-		  url: "https://api.mysportsfeeds.com/v1.2/pull/mlb/" + "2017" + "-regular/daily_game_schedule.json?fordate=" + theDate,
+		  url: "https://api.mysportsfeeds.com/v1.2/pull/mlb/" + year + "-regular/daily_game_schedule.json?fordate=" + theDate,
 		  dataType: 'json',
 		  async: false,
 		  headers: {

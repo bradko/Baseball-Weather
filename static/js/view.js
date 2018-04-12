@@ -57,13 +57,11 @@ class GamesView {
 		        	'" target="_blank">' + gameArray[i].stadium + '</a></h2>' 
 
 		        	if (gameArray[i].final === "true") {
-		        		console.log("history")
 			        	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/history_" + weatherDate + "/q/" + gameArray[i].state + "/" + weatherCity + ".json")
 						.then(function(response) {
 								return response.json()
 						})
 						.then(function(data){
-							console.log(data)
 							let len = data.history.observations.length
 							let weatherHour = Math.round((localTimeHours / 24) * len)
 							let obs = data.history.observations[weatherHour]
@@ -72,6 +70,9 @@ class GamesView {
 							let humidity = obs.hum
 							let windSpeed = obs.wspdi
 							let windDire = obs.wdire
+							if (gameArray[i].city == "Old_Toronto") {
+								gameArray[i].city = "Toronto"
+							}
 
 		            		contentString += '<h3>' + gameArray[i].city + ', ' + gameArray[i].state + 
 		            		'<span id="time">' + localTime.toLocaleString() + '</span></h3>' +
@@ -87,23 +88,22 @@ class GamesView {
 						})
 		        	}
 		        	else {
-		        		console.log("forecast")
 			        	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/hourly10day/q/" + gameArray[i].state + "/" + weatherCity + ".json")
 						.then(function(response) {
 								return response.json()
 						})
 						.then(function(data){
-								console.log(data)
 								let todaysdate = new Date()
 								let difference = Math.round((localTime.getTime() - todaysdate.getTime()) / 3600000)
-								console.log(difference) 
-								//data.hourly_forecast 
 								let obs = data.hourly_forecast[difference]
 								let temp = obs.temp.english
 								let conditions = obs.condition
 								let humidity = obs.humidity
 								let windSpeed = obs.wspd.english
 								let windDire = obs.wdir.dir
+								if (gameArray[i].city == "Old_Toronto") {
+									gameArray[i].city = "Toronto"
+								}
 
 								contentString += '<h3>' + gameArray[i].city + ', ' + gameArray[i].state + 
 			            		'<span id="time">' + localTime.toLocaleString() + '</span></h3>' +
@@ -125,28 +125,23 @@ class GamesView {
 		function timeZone(easternTime, date, state) {
 			let year = date.substring(0,4)
 			let month = parseInt(date.substring(4,6)) - 1
-			console.log(month)
 			let day = date.substring(6,8)
 			let hours = parseInt(easternTime.split(':')[0]) + 12
-			console.log(hours)
 			let minutes = easternTime.split(':')[1].substring(0,2)
 			easternTime = new Date(year, month, day, hours, minutes, 0, 0)
 			let localTime = easternTime
 			for (let st of pacific) {
 				if (state == st) {
-					//console.log("pacific")
 					let localTime = easternTime.setHours(easternTime.getHours() - 3)
 				}
 			}
 			for (let st of mountain) {
 				if (state == st) {
-					//console.log("mountain")
 					let localTime = easternTime.setHours(easternTime.getHours() - 2)
 				}
 			}
 			for (let st of central) {
 				if (state == st) {
-					//console.log("central")
 					let localTime = easternTime.setHours(easternTime.getHours() - 1)
 				}
 			}

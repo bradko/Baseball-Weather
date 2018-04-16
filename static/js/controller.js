@@ -44,7 +44,7 @@ function clickedon() {
 			}
 			catch(error) {
 				var len = 0
-				alert("No games for selected date")
+				alert("No games played on selected date, please choose another day.")
 				clearOverlays()
 			}
 		    let counter = 0
@@ -63,7 +63,7 @@ function clickedon() {
 					let state = address.split(',')[2].substring(1,3)
 					if (state == "ON") {
 						state = "Canada"
-						city = "Old_Toronto"
+						city = "Mississauga"
 					}
 					let game = new Game(homeTeam, awayTeam, g.game.date, g.game.time, g.game.location, g.homeScore, g.awayScore, g.isCompleted, lat, lng, city, state)
 					list.addGame(game)

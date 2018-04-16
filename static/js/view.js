@@ -58,11 +58,14 @@ class GamesView {
 		        	'" target="_blank">' + gameArray[i].stadium + '</a></h2>' 
 
 		        	if (gameArray[i].final === "true") {
+		        		
 			        	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/history_" + weatherDate + "/q/" + gameArray[i].state + "/" + weatherCity + ".json")
 						.then(function(response) {
 								return response.json()
 						})
 						.then(function(data){
+							console.log(data)
+							console.log(weatherDate, gameArray[i].state, weatherCity)
 							let len = data.history.observations.length
 							let weatherHour = Math.round((localTimeHours / 24) * len)
 							let obs = data.history.observations[weatherHour]
@@ -71,7 +74,11 @@ class GamesView {
 							let humidity = obs.hum
 							let windSpeed = obs.wspdi
 							let windDire = obs.wdire
-							if (gameArray[i].city == "Old_Toronto") {
+							if (windSpeed <= 0.0 || windSpeed == null || windSpeed == "") {
+								windSpeed = 0
+							}
+
+							if (gameArray[i].city == "Mississauga") {
 								gameArray[i].city = "Toronto"
 							}
 
@@ -89,6 +96,10 @@ class GamesView {
 		            		'<span>' + conditions + '</span></div>' + 
 		            		'<div class="row"><img src="../static/images/humidity.png">' +
 		            		'<span>Humidity: ' + humidity + '%</span></div></div>'
+
+		            		if (gameArray[i].city == "Toronto") {
+		            			gameArray[i].city = "Mississauga"
+		            		}
 
 		            		infowindow.setContent(contentString);
 		            		infowindow.open(map, marker);
@@ -111,7 +122,11 @@ class GamesView {
 							let humidity = obs.humidity
 							let windSpeed = obs.wspd.english
 							let windDire = obs.wdir.dir
-							if (gameArray[i].city == "Old_Toronto") {
+							if (windSpeed <= 0.0 || windSpeed == null || windSpeed == "") {
+								windSpeed = 0
+							}
+
+							if (gameArray[i].city == "Mississauga") {
 								gameArray[i].city = "Toronto"
 							}
 
@@ -128,6 +143,10 @@ class GamesView {
 		            		'<span>' + conditions + '</span></div>' + 
 		            		'<div class="row"><img src="../static/images/humidity.png">' +
 		            		'<span>Humidity: ' + humidity + '%</span></div></div>'
+
+		            		if (gameArray[i].city == "Toronto") {
+		            			gameArray[i].city = "Mississauga"
+		            		}
 
 							infowindow.setContent(contentString);
 		            		infowindow.open(map, marker);

@@ -123,6 +123,10 @@ class Game {
 		return this._state
 	}
 
+	set state(val) {
+		this._state = val
+	}
+
 	set city(val) {
 		this._city = val
 	}

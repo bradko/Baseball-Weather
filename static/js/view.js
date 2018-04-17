@@ -52,13 +52,17 @@ class GamesView {
 		    		let easternTime = gameArray[i].time
 		        	let localTime = timeZone(easternTime, weatherDate, gameArray[i].state)
 		        	let localTimeHours = localTime.getHours()
+		        	let wikiString = gameArray[i].stadium.replace(' ', '_')
+
+		        	if (wikiString == "Miller_Park") {
+		        		wikiString = "Miller_Park_(Milwaukee)"
+		        	}
 
 		        	let contentString = '<div id="infoWindowTitle">' +
-		        	'<h2><a href="https://en.wikipedia.org/wiki/'+ gameArray[i].stadium.replace(' ', '_') + 
+		        	'<h2><a href="https://en.wikipedia.org/wiki/'+ wikiString + 
 		        	'" target="_blank">' + gameArray[i].stadium + '</a></h2>' 
 
 		        	if (gameArray[i].final === "true") {
-		        		
 			        	fetch("http://api.wunderground.com/api/9cf4b72704b2efcc/history_" + weatherDate + "/q/" + gameArray[i].state + "/" + weatherCity + ".json")
 						.then(function(response) {
 								return response.json()
@@ -82,6 +86,10 @@ class GamesView {
 								gameArray[i].city = "Toronto"
 							}
 
+							if (gameArray[i].city == "Arbutus") {
+								gameArray[i].city = "Baltimore"
+							}
+
 		            		contentString += '<h3>' + gameArray[i].city + ', ' + gameArray[i].state + 
 		            		'<span id="time">' + localTime.toLocaleString() + '</span></h3>' +
 		            		'<p id="gameScoreOutput">' + gameArray[i].homeTeam + ' <b>[' + gameArray[i].homeScore + 
@@ -100,6 +108,10 @@ class GamesView {
 		            		if (gameArray[i].city == "Toronto") {
 		            			gameArray[i].city = "Mississauga"
 		            		}
+
+		            		if (gameArray[i].city == "Baltimore") {
+								gameArray[i].city = "Arbutus"
+							}
 
 		            		infowindow.setContent(contentString);
 		            		infowindow.open(map, marker);
@@ -130,6 +142,10 @@ class GamesView {
 								gameArray[i].city = "Toronto"
 							}
 
+							if (gameArray[i].city == "Arbutus") {
+								gameArray[i].city = "Baltimore"
+							}
+
 							contentString += '<h3>' + gameArray[i].city + ', ' + gameArray[i].state + 
 		            		'<span id="time">' + localTime.toLocaleString() + '</span></h3>' +
 		            		'<p id="gameScoreOutput">' + gameArray[i].homeTeam + ' vs. ' + gameArray[i].awayTeam + '</p></div>' + 
@@ -147,6 +163,10 @@ class GamesView {
 		            		if (gameArray[i].city == "Toronto") {
 		            			gameArray[i].city = "Mississauga"
 		            		}
+
+		            		if (gameArray[i].city == "Baltimore") {
+								gameArray[i].city = "Arbutus"
+							}
 
 							infowindow.setContent(contentString);
 		            		infowindow.open(map, marker);

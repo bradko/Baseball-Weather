@@ -16,27 +16,34 @@
 
 		<div class="container">
 			<header>
-				<h1 id="title">Google Maps: Baseball Games and Weather APIs</h1>
+				<h1 id="title">MLB Games and Weather App</h1>
 				<h2 id="authors">By: Austin Uetz & Brad Kovacovich</h2>
 			</header>
 
-			<div class="selector">
+			<div class="selector column">
+
+				<p>Range: Jan 2016 - Current Day (+9)</p>
 				<input id="calendar" type="date" min="2016-01-01" max="2018-01-01">
+				<span class="validity" id="validity"></span>
 				<button type="button" onclick="clickedon()" id="submit">Submit</button>
+
+				<div class="content">
+					<p id="date"></p>
+					<h4 id="selectedDate">Selected Date:</h4>
+				</div>
+
 			</div>
 
-			<div class="content">
-				<p id="date"></p>
+			<div class="status column">
+				<span>STATUS:</span>
+				<p id="fetchStatus"></p>
 			</div>
-
-			<div>
-				<h4 id="selectedDate">Selected Date:</h4>
-			</div>
+			
 
 			<div id="map"></div>
 
 			<footer>
-				<p>DISCLAIMER: Postseason games are not currently accessable and games are updates every 24 hours. Weather data in Canada may be slightly inaccurate.</p>
+				<p>DISCLAIMER: Games are updated every 24 hours and postseason games are unaccessable. Weather data in Canada may be slightly inaccurate.</p>
 			</footer>
 
 			<script async defer 
@@ -57,7 +64,7 @@
 			    window.locations = []
 			    window.markers = []
 			</script>
-			<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+			
     		</script>
 
 		</div>

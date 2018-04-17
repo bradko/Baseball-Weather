@@ -11,8 +11,22 @@ function clickedon() {
 	let year = date.value.substring(0,4)
 	let month = date.value.substring(5,7)
 	let day = date.value.substring(8,10)
+	console.log(day, month, year)
 	let theDate = month + '/' + day + '/' + year
-	sel.innerHTML = "Date Selected: " + theDate
+	if (day == "" || month == "" || year == "") {
+		document.getElementById("fetchStatus").innerHTML = "ERROR: Please select a valid date"
+		document.getElementById("fetchStatus").style.color = "red";
+	}
+	else {
+		sel.innerHTML = "Selected Date: " + theDate
+		document.getElementById("fetchStatus").innerHTML = "Loading..."
+		document.getElementById("fetchStatus").style.color = "black";
+	}
+	if (document.getElementById("validity").innerHTML == '✖') {
+		document.getElementById("fetchStatus").innerHTML = "ERROR: Please select a valid date"
+		document.getElementById("fetchStatus").style.color = "red";
+	}
+
 	theDate = year+month+day
 
 	dateObj =  new Date();
@@ -44,7 +58,8 @@ function clickedon() {
 			}
 			catch(error) {
 				var len = 0
-				alert("No games played on selected date, please choose another day.")
+				document.getElementById("fetchStatus").innerHTML = "ERROR: No games played on selected date"
+				document.getElementById("fetchStatus").style.color = "red";
 				clearOverlays()
 			}
 		    let counter = 0
@@ -65,6 +80,11 @@ function clickedon() {
 						state = "Canada"
 						city = "Mississauga"
 					}
+					if (state == "Ba") {
+						state = "MD"
+						city = "Arbutus"
+					}
+					
 					let game = new Game(homeTeam, awayTeam, g.game.date, g.game.time, g.game.location, g.homeScore, g.awayScore, g.isCompleted, lat, lng, city, state)
 					list.addGame(game)
 					counter += 1
@@ -74,9 +94,12 @@ function clickedon() {
 			    if (counter == len) {
 			    	console.log("got the games")
 			    	list.publishGames()
+			    	document.getElementById("fetchStatus").innerHTML = "SUCCESS"
+			    	document.getElementById("fetchStatus").style.color = "green";
 			    }
 			    else {
-			    	alert("Error getting games, please try again")
+			    	document.getElementById("fetchStatus").innerHTML = "ERROR: Please submit again"
+			    	document.getElementById("fetchStatus").style.color = "red";
 			    }
 			}, 1000)	
 		  }  
@@ -118,9 +141,12 @@ function clickedon() {
 			    if (counter == len) {
 			    	console.log("got the games")
 			    	list.publishGames()
+			    	document.getElementById("fetchStatus").innerHTML = "SUCCESS"
+			    	document.getElementById("fetchStatus").style.color = "green";
 			    }
 			    else {
-			    	alert("error getting games, please try again")
+			    	document.getElementById("fetchStatus").innerHTML = "ERROR: Please submit again"
+			    	document.getElementById("fetchStatus").style.color = "red";
 			    }
 			}, 1000)	
 		  }  

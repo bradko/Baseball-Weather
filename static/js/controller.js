@@ -11,7 +11,6 @@ function clickedon() {
 	let year = date.value.substring(0,4)
 	let month = date.value.substring(5,7)
 	let day = date.value.substring(8,10)
-	console.log(day, month, year)
 	let theDate = month + '/' + day + '/' + year
 	if (day == "" || month == "" || year == "") {
 		document.getElementById("fetchStatus").innerHTML = "ERROR: Please select a valid date"
@@ -84,7 +83,7 @@ function clickedon() {
 						state = "MD"
 						city = "Arbutus"
 					}
-					
+
 					let game = new Game(homeTeam, awayTeam, g.game.date, g.game.time, g.game.location, g.homeScore, g.awayScore, g.isCompleted, lat, lng, city, state)
 					list.addGame(game)
 					counter += 1
@@ -92,7 +91,6 @@ function clickedon() {
 		    }
 		    setTimeout(function(){
 			    if (counter == len) {
-			    	console.log("got the games")
 			    	list.publishGames()
 			    	document.getElementById("fetchStatus").innerHTML = "SUCCESS"
 			    	document.getElementById("fetchStatus").style.color = "green";
@@ -132,6 +130,15 @@ function clickedon() {
 					let address = data.results[0].formatted_address
 					let city = address.split(',')[1].replace(' ', '')
 					let state = address.split(',')[2].substring(1,3)
+					if (state == "ON") {
+						state = "Canada"
+						city = "Mississauga"
+					}
+					if (state == "Ba") {
+						state = "MD"
+						city = "Arbutus"
+					}
+
 					let game = new Game(homeTeam, awayTeam, g.date, g.time, g.location, 0, 0, false, lat, lng, city, state)
 					list.addGame(game)
 					counter += 1
@@ -139,7 +146,6 @@ function clickedon() {
 		    }
 		    setTimeout(function(){
 			    if (counter == len) {
-			    	console.log("got the games")
 			    	list.publishGames()
 			    	document.getElementById("fetchStatus").innerHTML = "SUCCESS"
 			    	document.getElementById("fetchStatus").style.color = "green";

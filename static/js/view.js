@@ -68,8 +68,6 @@ class GamesView {
 								return response.json()
 						})
 						.then(function(data){
-							console.log(data)
-							console.log(weatherDate, gameArray[i].state, weatherCity)
 							let len = data.history.observations.length
 							let weatherHour = Math.round((localTimeHours / 24) * len)
 							let obs = data.history.observations[weatherHour]
